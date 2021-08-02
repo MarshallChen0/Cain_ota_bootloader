@@ -1,0 +1,7 @@
+ExitOnError 1
+r
+h
+loadfile "C:\Users\user\Desktop\Saygin\Foxconn\b1000\B1000_ota_workspace11.3\Cain_ota_bootloader\Debug\evkmimxrt1060_ota_bootloader.hex"
+qc
+
+qc
