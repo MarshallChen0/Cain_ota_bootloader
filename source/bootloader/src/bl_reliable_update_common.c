@@ -269,8 +269,8 @@ status_t boot_meta_check(const bootloader_meta_t *boot_meta)
 {
     status_t status = kStatus_Fail;
 
-	debug_printf("[boot_meta_check] boot_meta.tag=0x%x boot_meta=0x%x\r\n",boot_meta->tag,boot_meta);
-	debug_printf("[boot_meta_check] boot_meta.meta_version=0x%x\r\n",boot_meta->meta_version);
+//	debug_printf("[boot_meta_check] boot_meta.tag=0x%x boot_meta=0x%x\r\n",boot_meta->tag,boot_meta);
+//	debug_printf("[boot_meta_check] boot_meta.meta_version=0x%x\r\n",boot_meta->meta_version);
     if ((boot_meta == NULL) || (boot_meta->tag != BOOTLOADER_META_TAG))
     {
         status = kStatus_Fail;
@@ -650,13 +650,14 @@ status_t boot_go(void)
 
 void show_boot_meta_info(const bootloader_meta_t *boot_meta)
 {
-    debug_printf("Boot Meta summary:\r\n---------------------------\r\n");
-    debug_printf("Boot Partition: start=%x, size=%x\r\n", boot_meta->partition[kPartition_Bootloader].start,
+    debug_printf("\r\nBoot Meta summary:\r\n");
+    debug_printf("Boot Partition\t: start=%x, size=%x\r\n", boot_meta->partition[kPartition_Bootloader].start,
                  boot_meta->partition[kPartition_Bootloader].size);
-    debug_printf("Primary Partition: start=%x, size=%x\r\n", boot_meta->partition[kPartition_Primary].start,
+    debug_printf("Primary Partition\t: start=%x, size=%x\r\n", boot_meta->partition[kPartition_Primary].start,
                  boot_meta->partition[kPartition_Primary].size);
-    debug_printf("Secondary Partition: start=%x, size=%x\r\n", boot_meta->partition[kPartition_Secondary].start,
+    debug_printf("Secondary Partition\t: start=%x, size=%x\r\n", boot_meta->partition[kPartition_Secondary].start,
                  boot_meta->partition[kPartition_Secondary].size);
+    debug_printf("----------\r\n");
 }
 
 void show_swap_meta_info(const swap_meta_t *swap_meta)
@@ -671,23 +672,25 @@ void show_swap_meta_info(const swap_meta_t *swap_meta)
         "kSwapStage_Done",
     };
 
-    debug_printf("Swap Meta summary:\r\n---------------------------\r\n");
+    debug_printf("Swap Meta summary:\r\n");
     if ((swap_meta->swap_type == kSwapType_ReadyForTest) || (swap_meta->swap_type == kSwapType_Test))
     {
         debug_printf("Swap is in progress...\r\n");
     }
-    debug_printf("swap_type:%s\r\n", swap_type_str[swap_meta->swap_type]);
-    debug_printf("swap_progress: offset=%x, scratch_size=%x, stage=%s, remaining_size=%x\r\n",
-                 swap_meta->swap_progress.swap_offset, swap_meta->swap_progress.scratch_size,
+    debug_printf("swap_type\t: %s\r\n", swap_type_str[swap_meta->swap_type]);
+    debug_printf("swap_progress\t: offset=%x scratch_size=%x \r\n",
+                 swap_meta->swap_progress.swap_offset, swap_meta->swap_progress.scratch_size);
+    debug_printf("\t\t  stage=%s remaining_size=%x\r\n",
                  swap_stage_str[swap_meta->swap_progress.swap_status], swap_meta->swap_progress.remaining_size);
-    debug_printf("Image Info:image[0].size=0x%x, image[1].size=0x%x\r\n", swap_meta->image_info[0].size,
+    debug_printf("Image Info\t: image[0].size=0x%x, image[1].size=0x%x\r\n", swap_meta->image_info[0].size,
                  swap_meta->image_info[1].size);
-    debug_printf("Swap Meta version:%d\r\n", swap_meta->meta_version);
+    debug_printf("Swap Meta version\t:%d\r\n", swap_meta->meta_version);
+    debug_printf("----------\r\n");
 }
 
 void bootloader_reliable_update_as_requested(reliable_update_option_t option, uint32_t address)
 {
-    debug_printf("Running %s...\r\n", __func__);
+    debug_printf("\r\nRunning: %s\r\n", __func__);
     status_t status = load_boot_meta(&s_boot_ctx.boot_meta);
     if (status != kStatus_Success)
     {

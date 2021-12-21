@@ -572,7 +572,7 @@ static void bootloader_init(void)
 
     // Message so python instantiated debugger can tell the
     // bootloader application is running on the target.
-    debug_printf("\r\n\r\nRunning bootloader...JCJC\r\n");
+    debug_printf("JC: Running bootloader\r\n");
 
 #if defined(DEBUG) && !defined(DEBUG_PRINT_DISABLE)
     standard_version_t version = g_bootloaderContext.propertyInterface->store->bootloaderVersion;
